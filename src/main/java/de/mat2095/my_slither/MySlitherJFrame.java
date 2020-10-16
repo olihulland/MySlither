@@ -212,7 +212,7 @@ final class MySlitherJFrame extends JFrame {
         getContentPane().add(upperRow, BorderLayout.NORTH);
 
         // === center ===
-        log = new JTextArea("hi");
+        log = new JTextArea("Log:");
         log.setEditable(false);
         log.setLineWrap(true);
         log.setFont(Font.decode("Monospaced 11"));
@@ -258,11 +258,13 @@ final class MySlitherJFrame extends JFrame {
 
         JScrollPane logScrollPane = new JScrollPane(log);
         logScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        logScrollPane.setPreferredSize(new Dimension(300, logScrollPane.getPreferredSize().height));
+        logScrollPane.setPreferredSize(new Dimension(0, logScrollPane.getPreferredSize().height));
         logScrollBar = logScrollPane.getVerticalScrollBar();
-        fullSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, logScrollPane, rightSplitPane);
+        fullSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, logScrollPane, rightSplitPane);
         fullSplitPane.setDividerSize(fullSplitPane.getDividerSize() * 4 / 3);
-        fullSplitPane.setResizeWeight(0.1);
+        fullSplitPane.setContinuousLayout(true);
+        fullSplitPane.getLeftComponent().setMinimumSize(new Dimension());
+        fullSplitPane.setDividerLocation(0.0);
 
         getContentPane().add(fullSplitPane, BorderLayout.CENTER);
 
