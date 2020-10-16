@@ -91,7 +91,7 @@ final class MySlitherJFrame extends JFrame {
     private final JComboBox<String> snake;
     private final JCheckBox useRandomServer;
     private final JToggleButton connect;
-    private final JLabel rank, kills;
+    private final JLabel rank, kills, connection;
     private final JSplitPane rightSplitPane, fullSplitPane;
     private final JTextArea log;
     private final JScrollBar logScrollBar;
@@ -180,6 +180,8 @@ final class MySlitherJFrame extends JFrame {
 
         kills = new JLabel();
 
+        connection = new JLabel("disconnected from server");
+
         settings.add(new JLabel("server:"),
             new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
         settings.add(server,
@@ -206,13 +208,17 @@ final class MySlitherJFrame extends JFrame {
             new GridBagConstraints(4, 2, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
         settings.add(rank,
             new GridBagConstraints(5, 2, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
+        settings.add(new JLabel("connection:"),
+            new GridBagConstraints(4, 0, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
+        settings.add(connection,
+            new GridBagConstraints(5, 0, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
 
         JComponent upperRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
         upperRow.add(settings);
         getContentPane().add(upperRow, BorderLayout.NORTH);
 
         // === center ===
-        log = new JTextArea("hi");
+        log = new JTextArea("Log:");
         log.setEditable(false);
         log.setLineWrap(true);
         log.setFont(Font.decode("Monospaced 11"));
@@ -258,11 +264,13 @@ final class MySlitherJFrame extends JFrame {
 
         JScrollPane logScrollPane = new JScrollPane(log);
         logScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        logScrollPane.setPreferredSize(new Dimension(300, logScrollPane.getPreferredSize().height));
+        logScrollPane.setPreferredSize(new Dimension(0, logScrollPane.getPreferredSize().height));
         logScrollBar = logScrollPane.getVerticalScrollBar();
-        fullSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, logScrollPane, rightSplitPane);
+        fullSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, logScrollPane, rightSplitPane);
         fullSplitPane.setDividerSize(fullSplitPane.getDividerSize() * 4 / 3);
-        fullSplitPane.setResizeWeight(0.1);
+        fullSplitPane.setContinuousLayout(true);
+        fullSplitPane.getLeftComponent().setMinimumSize(new Dimension());
+        fullSplitPane.setDividerLocation(0.0);
 
         getContentPane().add(fullSplitPane, BorderLayout.CENTER);
 
@@ -446,5 +454,12 @@ final class MySlitherJFrame extends JFrame {
             this.buttonEnabled = buttonEnabled;
             this.allowModifyData = allowModifyData;
         }
+    }
+
+    public void setConnected(boolean connected) {
+        if (connected)
+            connection.setText("connected to server");
+        else
+            connection.setText("disconnected from server");
     }
 }

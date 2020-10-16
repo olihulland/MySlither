@@ -75,12 +75,14 @@ final class MySlitherWebSocketClient extends WebSocketClient {
     @Override
     public void onOpen(ServerHandshake sh) {
         view.log("connected: " + sh.getHttpStatusMessage());
+        view.setConnected(true);
         view.onOpen();
     }
 
     @Override
     public void onClose(int i, String string, boolean bln) {
         view.log("closed: " + i + ", " + bln + ", " + string);
+        view.setConnected(false);
         view.onClose();
     }
 
@@ -92,6 +94,7 @@ final class MySlitherWebSocketClient extends WebSocketClient {
     @Override
     public void onError(Exception ex) {
         view.log("ERROR: " + ex);
+        view.setConnected(false);
         ex.printStackTrace();
     }
 
