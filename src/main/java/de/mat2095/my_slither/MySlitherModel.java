@@ -3,6 +3,7 @@ package de.mat2095.my_slither;
 import java.util.Deque;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 
 class MySlitherModel {
@@ -26,6 +27,8 @@ class MySlitherModel {
     private long lastUpdateTime;
 
     private final MySlitherJFrame view;
+
+    private int kills = 0;      //tracks kills.
 
     Snake snake;
 
@@ -232,5 +235,19 @@ class MySlitherModel {
                 return f.x / sectorSize == x && f.y / sectorSize == y;
             });
         }
+    }
+
+
+    //Method written to display notification on death.
+    void deathPopUp()
+    {
+        String deathMessage = "You Died!\n Score: " + this.getSnakeLength(snake.body.size(), snake.getFam()) + "\n Kills: " + kills;      //code added to display death popup message.
+        JOptionPane.showMessageDialog(view, deathMessage, "Game Over!", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    //increments kills (for death notification)
+    void addKill()
+    {
+        kills ++;
     }
 }

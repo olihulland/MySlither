@@ -441,6 +441,7 @@ final class MySlitherWebSocketClient extends WebSocketClient {
             return;
         }
         int deathReason = data[3];
+        model.deathPopUp();         //calls method to display death popup with stats.
         switch (deathReason) {
             case 0:
                 view.log("You died.");
@@ -687,7 +688,7 @@ final class MySlitherWebSocketClient extends WebSocketClient {
 
         int id = (data[3] << 8) | data[4];
         int kills = (data[5] << 16) | (data[6] << 8) | data[7];
-
+        model.addKill();        //increments kills.
         if (id == model.snake.id) {
             view.setKills(kills);
         } else {
