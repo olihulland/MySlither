@@ -91,7 +91,7 @@ final class MySlitherJFrame extends JFrame {
     private final JComboBox<String> snake;
     private final JCheckBox useRandomServer;
     private final JToggleButton connect;
-    private final JLabel rank, kills;
+    private final JLabel rank, kills, connection;
     private final JSplitPane rightSplitPane, fullSplitPane;
     private final JTextArea log;
     private final JScrollBar logScrollBar;
@@ -180,6 +180,8 @@ final class MySlitherJFrame extends JFrame {
 
         kills = new JLabel();
 
+        connection = new JLabel("disconnected from server");
+
         settings.add(new JLabel("server:"),
             new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
         settings.add(server,
@@ -206,6 +208,10 @@ final class MySlitherJFrame extends JFrame {
             new GridBagConstraints(4, 2, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
         settings.add(rank,
             new GridBagConstraints(5, 2, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
+        settings.add(new JLabel("connection:"),
+            new GridBagConstraints(4, 0, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
+        settings.add(connection,
+            new GridBagConstraints(5, 0, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
 
         JComponent upperRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
         upperRow.add(settings);
@@ -448,5 +454,12 @@ final class MySlitherJFrame extends JFrame {
             this.buttonEnabled = buttonEnabled;
             this.allowModifyData = allowModifyData;
         }
+    }
+
+    public void setConnected(boolean connected) {
+        if (connected)
+            connection.setText("connected to server");
+        else
+            connection.setText("disconnected from server");
     }
 }
