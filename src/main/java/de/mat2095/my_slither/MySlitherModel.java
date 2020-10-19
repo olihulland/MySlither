@@ -239,9 +239,24 @@ class MySlitherModel {
 
 
     //Method written to display notification on death.
-    void deathPopUp()
+    void deathPopUp(int deathReason)
     {
-        String deathMessage = "You Died!\n Score: " + this.getSnakeLength(snake.body.size(), snake.getFam()) + "\n Kills: " + kills;      //code added to display death popup message.
+        String deathMessage;
+        //switch case alters message based on death reason.
+        switch(deathReason) {
+            case 0:
+                deathMessage = "You died!";
+                break;
+            case 1:
+                deathMessage = "You've achieved a new record!";
+                break;
+            case 2:
+                deathMessage = "Death reason 2, unknown.";
+                break;
+            default:
+                deathMessage = "invalid death reason: " + deathReason + "!";
+        }
+        deathMessage = deathMessage + "\n Score: " + this.getSnakeLength(snake.body.size(), snake.getFam()) + "\n Kills: " + kills;      //code added to display death popup message.
         JOptionPane.showMessageDialog(view, deathMessage, "Game Over!", JOptionPane.INFORMATION_MESSAGE);
     }
 

@@ -444,7 +444,7 @@ final class MySlitherWebSocketClient extends WebSocketClient {
             return;
         }
         int deathReason = data[3];
-        model.deathPopUp();         //calls method to display death popup with stats.
+        model.deathPopUp(deathReason);         //calls method to display death popup with stats.
         switch (deathReason) {
             case 0:
                 view.log("You died.");
