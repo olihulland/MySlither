@@ -456,6 +456,12 @@ final class MySlitherJFrame extends JFrame {
         }
     }
 
+    /**
+     * Method that changes the connection status message at the top of the window based on the parameter passed to it.
+     * <li>If true, status = "connected to server"
+     * <li>If false, status = "disconnected from server"
+     * @param connected true if connected to server, false if not connected to server
+     */
     public void setConnected(boolean connected) {
         if (connected)
             connection.setText("connected to server");
